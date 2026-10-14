@@ -1,7 +1,8 @@
-53b9d238f7c92e0e1751b20d1e3f49357b67b3e1b0aa1d0379b5846962ce539e
-curl: (56) Recv failure: Connection reset by peer
+# 2026-10-14T12:26:35Z
+# docker run smoke
 
+10d9beb457704a8c86f06932db263579c0d0702dcb6ac400be3998dff4cc6434
 {"service":"docproc","version":"81b671a","message":"Logikality document service"}
 {"status":"ok"}
 NAMES                     STATUS
-logikality-evidence-api   Up 13 seconds (healthy)
+logikality-evidence-api   Up 12 seconds (healthy)

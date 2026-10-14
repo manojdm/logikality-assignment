@@ -53,5 +53,8 @@ docs/evidence/.tmp/
 .python-version
 .tools/
 
-# Intermediate diagram output (architecture.png is the deliverable)
-docs/diagrams/*.svg
+# Diagram generators (only the rendered PNGs are deliverables)
+docs/diagrams/
+
+# Editor-only config
+.editorconfig

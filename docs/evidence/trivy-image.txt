@@ -1,19 +1,18 @@
-# 2026-10-14T12:02:27Z
-# trivy image --severity HIGH,CRITICAL --ignore-unfixed logikality-docproc:local
+# 2026-10-14T12:25:25Z
+# trivy image --severity HIGH,CRITICAL --ignore-unfixed --no-progress logikality-docproc:local
 
-2026-10-14T17:32:27+05:30	INFO	[vuln] Vulnerability scanning is enabled
-2026-10-14T17:32:27+05:30	INFO	[secret] Secret scanning is enabled
-2026-10-14T17:32:27+05:30	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
-2026-10-14T17:32:27+05:30	INFO	[secret] Please see https://trivy.dev/docs/v0.75/guide/scanner/secret#recommendation for faster secret detection
-2026-10-14T17:32:30+05:30	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
-2026-10-14T17:32:30+05:30	WARN	Recommend using Trivy to generate SBOMs
-2026-10-14T17:32:30+05:30	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
-2026-10-14T17:32:30+05:30	INFO	Detected OS	family="debian" version="13.7"
-2026-10-14T17:32:30+05:30	INFO	[debian] Detecting vulnerabilities...	os_version="13" pkg_num=87
-2026-10-14T17:32:30+05:30	INFO	Number of language-specific files	num=1
-2026-10-14T17:32:30+05:30	INFO	[python-pkg] Detecting vulnerabilities...
-2026-10-14T17:32:30+05:30	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
-2026-10-14T17:32:30+05:30	INFO	Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+2026-10-14T17:55:26+05:30	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-14T17:55:26+05:30	INFO	[secret] Secret scanning is enabled
+2026-10-14T17:55:26+05:30	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-10-14T17:55:26+05:30	INFO	[secret] Please see https://trivy.dev/docs/v0.75/guide/scanner/secret#recommendation for faster secret detection
+2026-10-14T17:55:37+05:30	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+2026-10-14T17:55:37+05:30	WARN	Recommend using Trivy to generate SBOMs
+2026-10-14T17:55:38+05:30	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
+2026-10-14T17:55:38+05:30	INFO	Detected OS	family="debian" version="13.7"
+2026-10-14T17:55:38+05:30	INFO	[debian] Detecting vulnerabilities...	os_version="13" pkg_num=87
+2026-10-14T17:55:38+05:30	INFO	Number of language-specific files	num=1
+2026-10-14T17:55:38+05:30	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-14T17:55:38+05:30	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
 
 Report Summary
 
@@ -22,7 +21,7 @@ Report Summary
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ logikality-docproc:local (debian 13.7)                                           │   debian   │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ Python                                                                           │ python-pkg │        4        │    -    │
+│ opt/venv/lib/python3.12/site-packages/annotated_doc-0.0.5.dist-info/METADATA     │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/annotated_types-0.8.0.dist-info/METADATA   │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
@@ -34,7 +33,7 @@ Report Summary
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/click-8.5.0.dist-info/METADATA             │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ opt/venv/lib/python3.12/site-packages/fastapi-0.115.12.dist-info/METADATA        │ python-pkg │        0        │    -    │
+│ opt/venv/lib/python3.12/site-packages/fastapi-0.143.0.dist-info/METADATA         │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/h11-0.16.0.dist-info/METADATA              │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
@@ -44,7 +43,8 @@ Report Summary
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/jmespath-1.1.0.dist-info/METADATA          │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ opt/venv/lib/python3.12/site-packages/pip-26.2.1.dist-info/METADATA              │ python-pkg │        0        │    -    │
+│ opt/venv/lib/python3.12/site-packages/opentelemetry_api-1.45.1.dist-info/METADA- │ python-pkg │        0        │    -    │
+│ TA                                                                               │            │                 │         │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/pydantic-2.11.3.dist-info/METADATA         │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
@@ -57,7 +57,7 @@ Report Summary
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/python_dotenv-1.2.4.dist-info/METADATA     │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ opt/venv/lib/python3.12/site-packages/python_multipart-0.0.20.dist-info/METADATA │ python-pkg │        3        │    -    │
+│ opt/venv/lib/python3.12/site-packages/python_multipart-0.0.30.dist-info/METADATA │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/pyyaml-6.0.3.dist-info/METADATA            │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
@@ -65,7 +65,7 @@ Report Summary
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/six-1.17.0.dist-info/METADATA              │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ opt/venv/lib/python3.12/site-packages/starlette-0.46.2.dist-info/METADATA        │ python-pkg │        3        │    -    │
+│ opt/venv/lib/python3.12/site-packages/starlette-1.3.1.dist-info/METADATA         │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/typing_extensions-4.16.0.dist-info/METADA- │ python-pkg │        0        │    -    │
 │ TA                                                                               │            │                 │         │
@@ -74,7 +74,7 @@ Report Summary
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/urllib3-2.8.0.dist-info/METADATA           │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
-│ opt/venv/lib/python3.12/site-packages/uvicorn-0.34.2.dist-info/METADATA          │ python-pkg │        0        │    -    │
+│ opt/venv/lib/python3.12/site-packages/uvicorn-0.37.0.dist-info/METADATA          │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
 │ opt/venv/lib/python3.12/site-packages/uvloop-0.23.0.dist-info/METADATA           │ python-pkg │        0        │    -    │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
@@ -89,54 +89,7 @@ Legend:
 - '0': Clean (no security findings detected)
 
 
-Python (python-pkg)
-===================
-Total: 10 (HIGH: 10, CRITICAL: 0)
-
-┌─────────────────────────────┬─────────────────────┬──────────┬────────┬───────────────────┬───────────────┬──────────────────────────────────────────────────────────────┐
-│           Library           │    Vulnerability    │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                             │
-├─────────────────────────────┼─────────────────────┼──────────┼────────┼───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ msgpack                     │ GHSA-6v7p-g79w-8964 │ HIGH     │ fixed  │ 1.1.2             │ 1.2.1         │ MessagePack for Python: Out-of-bounds read / crash on        │
-│                             │                     │          │        │                   │               │ Unpacker reuse after a...                                    │
-│                             │                     │          │        │                   │               │ https://github.com/advisories/GHSA-6v7p-g79w-8964            │
-├─────────────────────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ python-multipart (METADATA) │ CVE-2026-24486      │          │        │ 0.0.20            │ 0.0.22        │ python-multipart: Python-Multipart: Arbitrary file write via │
-│                             │                     │          │        │                   │               │ path traversal vulnerability                                 │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-24486                   │
-│                             ├─────────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
-│                             │ CVE-2026-42561      │          │        │                   │ 0.0.27        │ python-multipart: python-multipart: Denial of Service via    │
-│                             │                     │          │        │                   │               │ excessive multipart part headers                             │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-42561                   │
-│                             ├─────────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
-│                             │ CVE-2026-53539      │          │        │                   │ 0.0.30        │ python-multipart: Python-Multipart: Denial of Service via    │
-│                             │                     │          │        │                   │               │ crafted form-urlencoded bodies                               │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-53539                   │
-├─────────────────────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ setuptools                  │ CVE-2025-47273      │          │        │ 70.3.0            │ 78.1.1        │ setuptools: Path Traversal Vulnerability in setuptools       │
-│                             │                     │          │        │                   │               │ PackageIndex                                                 │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-47273                   │
-├─────────────────────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ starlette (METADATA)        │ CVE-2025-62727      │          │        │ 0.46.2            │ 0.49.1        │ starlette: Starlette DoS via Range header merging            │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-62727                   │
-│                             ├─────────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
-│                             │ CVE-2026-48818      │          │        │                   │ 1.1.0         │ starlette: Starlette: SSRF and NTLM credential theft via UNC │
-│                             │                     │          │        │                   │               │ paths in StaticFiles...                                      │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-48818                   │
-│                             ├─────────────────────┤          │        │                   ├───────────────┼──────────────────────────────────────────────────────────────┤
-│                             │ CVE-2026-54283      │          │        │                   │ 1.3.1         │ starlette: Starlette: request.form() limits silently ignored │
-│                             │                     │          │        │                   │               │ for application/x-www-form-urlencoded enable DoS             │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-54283                   │
-├─────────────────────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────────┤
-│ urllib3                     │ CVE-2026-97687      │          │        │ 2.7.0             │ 2.8.0         │ urllib3: urllib3: Traffic interception via HTTPS proxy TLS   │
-│                             │                     │          │        │                   │               │ configuration override                                       │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-97687                   │
-│                             ├─────────────────────┤          │        │                   │               ├──────────────────────────────────────────────────────────────┤
-│                             │ CVE-2026-97689      │          │        │                   │               │ urllib3: urllib3: Denial of Service via unbounded memory     │
-│                             │                     │          │        │                   │               │ allocation in chunk parser...                                │
-│                             │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-97689                   │
-└─────────────────────────────┴─────────────────────┴──────────┴────────┴───────────────────┴───────────────┴──────────────────────────────────────────────────────────────┘
-
-📣 [34mNotices:[0m
+📣 Notices:
   - Version 0.76.0 of Trivy is now available, current version is 0.75.0
 
 To suppress version checks, run Trivy scans with the --skip-version-check flag

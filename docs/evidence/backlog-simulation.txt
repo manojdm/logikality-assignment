@@ -1,50 +1,53 @@
-==> starting stack with slow, flaky worker
+==> starting stack with slow, flaky worker and maxReceiveCount=3
 #0 building with "desktop-linux" instance using docker driver
 
 #1 [api internal] load build definition from Dockerfile
-#1 transferring dockerfile: 1.60kB done
+#1 transferring dockerfile: 1.96kB 0.0s done
 #1 DONE 0.0s
 
 #2 [api internal] load .dockerignore
 #2 transferring context: 393B 0.0s done
 #2 DONE 0.0s
 
-#3 [api internal] load metadata for docker.io/library/python:3.12-slim
-#3 DONE 0.5s
+#3 [api internal] load metadata for docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#3 DONE 0.0s
 
 #4 [api builder 1/4] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 #4 DONE 0.0s
 
 #5 [api internal] load build context
-#5 transferring context: 1.10kB 0.0s done
+#5 transferring context: 1.01kB 0.0s done
 #5 DONE 0.0s
 
-#6 [api builder 2/4] WORKDIR /build
+#6 [api runtime 5/6] RUN /opt/venv/bin/python -m pip uninstall -y pip setuptools     && python -m pip uninstall -y pip setuptools || true
 #6 CACHED
 
-#7 [api runtime 4/5] COPY app/src /app/src
+#7 [api runtime 2/6] RUN groupadd --gid 10001 app     && useradd --uid 10001 --gid 10001 --create-home --home-dir /app app
 #7 CACHED
 
-#8 [api runtime 2/5] RUN groupadd --gid 10001 app     && useradd --uid 10001 --gid 10001 --create-home --home-dir /app app
+#8 [api builder 3/4] COPY app/requirements.lock .
 #8 CACHED
 
-#9 [api runtime 3/5] COPY --from=builder /opt/venv /opt/venv
+#9 [api runtime 4/6] COPY app/src /app/src
 #9 CACHED
 
-#10 [api builder 3/4] COPY app/requirements.txt .
+#10 [api builder 2/4] WORKDIR /build
 #10 CACHED
 
-#11 [api builder 4/4] RUN python -m venv /opt/venv     && /opt/venv/bin/pip install --upgrade pip     && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
+#11 [api builder 4/4] RUN python -m venv /opt/venv     && /opt/venv/bin/pip install --upgrade pip     && /opt/venv/bin/pip install --no-cache-dir --require-hashes -r requirements.lock
 #11 CACHED
 
-#12 [api runtime 5/5] WORKDIR /app
+#12 [api runtime 3/6] COPY --from=builder /opt/venv /opt/venv
 #12 CACHED
 
-#13 [api] exporting to image
-#13 exporting layers done
-#13 writing image sha256:ec7fd6ecfd156057e37cf5a41d095b83f1ccb6726923f5bfc073bbbadec8b1ba done
-#13 naming to docker.io/library/logikality-docproc:local done
-#13 DONE 0.0s
+#13 [api runtime 6/6] WORKDIR /app
+#13 CACHED
+
+#14 [api] exporting to image
+#14 exporting layers done
+#14 writing image sha256:133c8fe2b005f497c59b6526379d145ea3f587106251d8ff1547a1f0abafd776 done
+#14 naming to docker.io/library/logikality-docproc:local done
+#14 DONE 0.0s
  Network logikality_default  Creating
  Network logikality_default  Created
  Container logikality-localstack-1  Creating
@@ -59,115 +62,50 @@
  Container logikality-localstack-1  Healthy
  Container logikality-api-1  Starting
  Container logikality-api-1  Started
+ Container logikality-api-1  Waiting
  Container logikality-localstack-1  Waiting
  Container logikality-localstack-1  Healthy
+ Container logikality-api-1  Healthy
  Container logikality-worker-1  Starting
  Container logikality-worker-1  Started
 ==> waiting for API
-==> submitting a burst of documents
+==> DLQ depth before poisons
+0
+==> injecting poison: invalid body
+==> injecting poison: missing object
+==> submitting a burst of valid documents
 submitted 1
 submitted 2
 submitted 3
 submitted 4
 submitted 5
 submitted 6
-submitted 7
-submitted 8
-==> sampling queue attributes for 40s
---- 12:01:34 ---
+==> sampling until DLQ=2 and processing queue drains
+--- 12:24:37 ---
+processing=8	0 dlq=0
+--- 12:24:48 ---
+processing=4	0 dlq=0
+--- 12:24:55 ---
+processing=1	0 dlq=1
+--- 12:25:01 ---
+processing=0	0 dlq=2
+==> final depths
 processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
+----------------------------------------------------------------------------
+|                            GetQueueAttributes                            |
++--------------------------------------------------------------------------+
+||                               Attributes                               ||
+|+------------------------------+-----------------------------------------+|
+||  ApproximateNumberOfMessages |  ApproximateNumberOfMessagesNotVisible  ||
+|+------------------------------+-----------------------------------------+|
+||  0                           |  0                                      ||
+|+------------------------------+-----------------------------------------+|
 DLQ:
 ----------------------------------------
 |          GetQueueAttributes          |
 +--------------------------------------+
 ||             Attributes             ||
 |+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
+||  ApproximateNumberOfMessages  |  2 ||
 |+-------------------------------+----+|
---- 12:01:40 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
---- 12:01:46 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
---- 12:01:52 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
---- 12:01:58 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
---- 12:02:04 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
---- 12:02:09 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
---- 12:02:15 ---
-processing queue:
-
-aws: [ERROR]: An error occurred (InvalidAttributeName) when calling the GetQueueAttributes operation: Unknown Attribute ApproximateAgeOfOldestMessage.
-DLQ:
-----------------------------------------
-|          GetQueueAttributes          |
-+--------------------------------------+
-||             Attributes             ||
-|+-------------------------------+----+|
-||  ApproximateNumberOfMessages  |  0 ||
-|+-------------------------------+----+|
-==> backlog simulation complete (see ApproximateNumberOfMessages and DLQ depth above)
+backlog simulation complete: DLQ filled with 2 poison messages

@@ -6,7 +6,7 @@ export PATH := $(HOME)/.local/bin:/opt/homebrew/bin:$(PATH)
 
 .PHONY: install lint test docker-build docker-run smoke docker-scan e2e \
 	simulate-backlog tf-fmt tf-validate tf-lint tf-scan tf-test tf-plan \
-	diagram actionlint evidence clean
+	actionlint evidence clean
 
 install:
 	uv pip install --python app/.venv/bin/python -r app/requirements.txt -r app/requirements-dev.txt
@@ -63,10 +63,6 @@ tf-plan:
 	@test -n "$$AWS_PROFILE" || (echo "Set AWS_PROFILE=<your-profile>" && exit 1)
 	terraform -chdir=infra init -backend=false -input=false -no-color
 	terraform -chdir=infra plan -input=false -no-color
-
-diagram:
-	$(PYTHON) docs/diagrams/architecture.py
-	$(PYTHON) docs/diagrams/architecture-future.py
 
 actionlint:
 	actionlint

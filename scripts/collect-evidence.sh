@@ -41,9 +41,9 @@ run tf-validate.txt bash -c "terraform -chdir=infra init -backend=false -input=f
 run tf-test.txt terraform -chdir=infra test -no-color
 run tflint.txt bash -c "tflint --chdir=infra --recursive --init >/dev/null && tflint --chdir=infra --recursive"
 if command -v checkov >/dev/null; then
-  run checkov.txt checkov -d infra --framework terraform --compact --quiet --no-color
+  run checkov.txt checkov -d infra --framework terraform --compact --quiet
 elif [[ -x .tools/checkov/bin/checkov ]]; then
-  run checkov.txt .tools/checkov/bin/checkov -d infra --framework terraform --compact --quiet --no-color
+  run checkov.txt .tools/checkov/bin/checkov -d infra --framework terraform --compact --quiet
 else
   echo "checkov not installed" | tee "${EV}/checkov.txt"
 fi
@@ -61,9 +61,9 @@ echo "==> docker build"
 echo "==> docker run smoke"
 docker rm -f logikality-evidence-api >/dev/null 2>&1 || true
 {
-  docker run -d --name logikality-evidence-api -p 18080:8080 "${IMAGE}"
+  docker run -d --name logikality-evidence-api -p 18080:8080 "logikality-docproc:${GIT_SHA}"
   for _ in $(seq 1 30); do
-    if curl -sS -f http://127.0.0.1:18080/health >/dev/null; then
+    if curl -sf http://127.0.0.1:18080/health >/dev/null 2>&1; then
       break
     fi
     sleep 1
