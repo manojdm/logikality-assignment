@@ -110,7 +110,7 @@ jobs:
           curl -fsS http://127.0.0.1:8080/ | grep -q docproc
           curl -fsS http://127.0.0.1:8080/health | grep -q ok
           docker rm -f smoke
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ steps.meta.outputs.tags }}
           format: sarif
