@@ -1,0 +1,65 @@
+services:
+  localstack:
+    image: localstack/localstack:3.8.1
+    environment:
+      SERVICES: s3,sqs,dynamodb,kms
+      DEBUG: "0"
+      AWS_DEFAULT_REGION: us-east-1
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./scripts/localstack-init.sh:/etc/localstack/init/ready.d/init.sh:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      args:
+        GIT_SHA: local
+    image: logikality-docproc:local
+    ports:
+      - "18080:8080"
+    environment:
+      # LocalStack dummy credentials — not real AWS keys. Compose-only.
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_REGION: us-east-1
+      AWS_ENDPOINT_URL: http://localstack:4566
+      DOCUMENT_BUCKET: logikality-documents
+      QUEUE_URL: http://localstack:4566/000000000000/logikality-processing
+      IDEMPOTENCY_TABLE: logikality-idempotency
+      APP_ENV: local
+      LOG_LEVEL: INFO
+      AWS_EC2_METADATA_DISABLED: "true"
+    depends_on:
+      localstack:
+        condition: service_healthy
+
+  worker:
+    image: logikality-docproc:local
+    command: ["python", "-m", "docproc.worker"]
+    environment:
+      # LocalStack dummy credentials — not real AWS keys. Compose-only.
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_REGION: us-east-1
+      AWS_ENDPOINT_URL: http://localstack:4566
+      DOCUMENT_BUCKET: logikality-documents
+      QUEUE_URL: http://localstack:4566/000000000000/logikality-processing
+      IDEMPOTENCY_TABLE: logikality-idempotency
+      APP_ENV: local
+      LOG_LEVEL: INFO
+      PROCESSING_DELAY_SECONDS: ${PROCESSING_DELAY_SECONDS:-0}
+      FAILURE_RATE: ${FAILURE_RATE:-0}
+      AWS_EC2_METADATA_DISABLED: "true"
+    depends_on:
+      localstack:
+        condition: service_healthy
+      api:
+        condition: service_started

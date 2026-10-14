@@ -1,0 +1,13 @@
+title = "logikality"
+
+[allowlist]
+description = "local tool caches and vendored providers"
+paths = [
+  '''(^|/)\.venv/''',
+  '''(^|/)app/\.venv/''',
+  '''(^|/)\.tools/''',
+  '''(^|/)\.terraform/''',
+  '''(^|/)\.mypy_cache/''',
+  '''(^|/)\.pytest_cache/''',
+  '''(^|/)\.ruff_cache/''',
+]
