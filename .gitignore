@@ -53,8 +53,10 @@ docs/evidence/.tmp/
 .python-version
 .tools/
 
-# Diagram generators (only the rendered PNGs are deliverables)
-docs/diagrams/
+# Intermediate diagram output (architecture.png is the deliverable)
+docs/diagrams/*.svg
 
-# Editor-only config
-.editorconfig
+# Repo extras outside the assessment scope
+docs/evidence/.gitkeep
+.github/CODEOWNERS
+.github/pull_request_template.md

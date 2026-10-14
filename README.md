@@ -30,6 +30,8 @@ The diagram reads left to right. Ingest is steps A–C: the API stores the docum
 | Proposed — not deployed | ALB, ECS services, OCR/LLM provider, ECS and application-metric alarms, paging, VPC, VPC endpoints, NAT, RDS, worker autoscaling. |
 | Verified as deployed | None. `terraform plan` was not run against an account ([`docs/evidence/tf-plan.txt`](docs/evidence/tf-plan.txt)). |
 
+Editable sources: [`docs/diagrams/architecture.py`](docs/diagrams/architecture.py) and [`docs/diagrams/architecture-future.py`](docs/diagrams/architecture-future.py). These are standard-library Python scripts that write SVG next to themselves; `make diagram` re-renders both PNGs with `rsvg-convert`.
+
 **Known gaps the diagram makes visible** (documented, not yet fixed):
 
 - **Stale idempotency claims.** `IdempotencyStore.claim` has no lease expiry and no conditional reclaim, and nothing clears the `IN_PROGRESS` claim when processing fails. A crash or error after the claim therefore makes every retry return `in_progress` and back off. The job ends up in the DLQ, and a redriven job stays blocked until the 7-day TTL deletes the claim.
@@ -56,7 +58,7 @@ scripts/             e2e, backlog simulation, evidence collector
 - Docker
 - Python 3.12 (this repo uses a venv at `app/.venv`)
 - Terraform >= 1.11 (`brew tap hashicorp/tap && brew install hashicorp/tap/terraform`)
-- Optional: `tflint`, `hadolint`, `actionlint`, `trivy`, `gitleaks`, `checkov`
+- Optional: `tflint`, `hadolint`, `actionlint`, `trivy`, `gitleaks`, `checkov`, `librsvg` (`rsvg-convert`, for `make diagram`)
 
 ```bash
 make install          # uv pip into app/.venv
