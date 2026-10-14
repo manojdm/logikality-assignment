@@ -23,7 +23,7 @@ jobs:
         working-directory: infra
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.10.5"
       - uses: terraform-linters/setup-tflint@v4
@@ -69,7 +69,7 @@ jobs:
   #       with:
   #         role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
   #         aws-region: us-east-1
-  #     - uses: hashicorp/setup-terraform@v3
+  #     - uses: hashicorp/setup-terraform@v4
   #     - run: terraform -chdir=infra init
   #     - run: terraform -chdir=infra plan -no-color -out=tfplan
   #     - name: Post plan as PR comment
