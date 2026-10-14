@@ -1,0 +1,45 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: ["--unsafe"]
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.6
+    hooks:
+      - id: ruff
+        args: ["check", "--fix"]
+        files: ^app/
+      - id: ruff-format
+        files: ^app/
+
+  - repo: local
+    hooks:
+      - id: terraform-fmt
+        name: terraform fmt
+        entry: terraform fmt -check -recursive infra
+        language: system
+        files: \.tf$
+        pass_filenames: false
+      - id: tflint
+        name: tflint
+        entry: tflint --chdir=infra --recursive
+        language: system
+        files: \.tf$
+        pass_filenames: false
+      - id: hadolint
+        name: hadolint
+        entry: hadolint
+        language: system
+        files: Dockerfile
+      - id: gitleaks
+        name: gitleaks
+        entry: gitleaks protect --staged --redact --verbose
+        language: system
+        pass_filenames: false

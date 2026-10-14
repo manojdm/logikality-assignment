@@ -1,0 +1,62 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.junit.xml
+.tox/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+tfplan
+tfplan.*
+*.tfplan
+
+# Docker
+*.tar
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Evidence temp
+docs/evidence/.tmp/
+
+# uv
+.python-version
+.tools/
+
+# Intermediate diagram output (architecture.png is the deliverable)
+docs/diagrams/*.svg
+
+# Repo extras outside the assessment scope
+docs/evidence/.gitkeep
+.github/CODEOWNERS
+.github/pull_request_template.md

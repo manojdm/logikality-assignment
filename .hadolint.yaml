@@ -1,0 +1,6 @@
+# Fail the build on any warning so Dockerfile hygiene stays review-grade.
+failure-threshold: warning
+trustedRegistries:
+  - docker.io
+  - ghcr.io
+ignored: []
