@@ -1,7 +1,7 @@
-9a04b27926e40d67477f8fdcdb079828533ba377b5a58bdc0e579a7b4122918b
+53b9d238f7c92e0e1751b20d1e3f49357b67b3e1b0aa1d0379b5846962ce539e
 curl: (56) Recv failure: Connection reset by peer
-{"status":"ok"}
-{"service":"docproc","version":"dev","message":"Logikality document service"}
+
+{"service":"docproc","version":"81b671a","message":"Logikality document service"}
 {"status":"ok"}
 NAMES                     STATUS
-logikality-evidence-api   Up 11 seconds (healthy)
+logikality-evidence-api   Up 13 seconds (healthy)

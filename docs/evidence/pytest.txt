@@ -1,34 +1,20 @@
-# 2026-10-14T11:59:58Z
+# 2026-10-14T12:22:41Z
 # pytest
-.................................                                        [100%]
-=============================== warnings summary ===============================
-.venv/lib/python3.12/site-packages/starlette/testclient.py:37
-  /Users/manojdm/Desktop/logikality/app/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
-    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
-
-tests/test_api.py: 40 warnings
-tests/test_aws.py: 12 warnings
-tests/test_idempotency.py: 22 warnings
-tests/test_worker.py: 51 warnings
-tests/test_worker_extra.py: 44 warnings
-  /Users/manojdm/Desktop/logikality/app/.venv/lib/python3.12/site-packages/botocore/auth.py:425: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
-    datetime_now = datetime.datetime.utcnow()
-
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+..............................................                           [100%]
 ================================ tests coverage ================================
 ______________ coverage: platform darwin, python 3.12.13-final-0 _______________
 
 Name                         Stmts   Miss Branch BrPart  Cover   Missing
 ------------------------------------------------------------------------
 src/docproc/__init__.py          2      0      0      0   100%
-src/docproc/aws.py              65      2     14      3    94%   93, 117->132, 131
+src/docproc/aws.py              79      4     16      3    93%   15-17, 143->158, 157
 src/docproc/config.py           31      0      2      0   100%
-src/docproc/idempotency.py      35      0      4      0   100%
-src/docproc/logging.py          46      0     14      0   100%
-src/docproc/main.py            105     10     14      1    91%   48-54, 117-120, 166-167
-src/docproc/models.py           26      0      0      0   100%
-src/docproc/worker.py          115      8     24      4    90%   72, 83, 206-209, 214, 218
+src/docproc/idempotency.py      42      0      6      0   100%
+src/docproc/logging.py          53      0     18      0   100%
+src/docproc/main.py            126      7     20      2    94%   126-129, 152->160, 156-158
+src/docproc/models.py           23      0      0      0   100%
+src/docproc/worker.py          129      5     26      4    94%   75, 120->122, 198, 208, 216, 220
 ------------------------------------------------------------------------
-TOTAL                          425     20     72      8    94%
-Required test coverage of 85% reached. Total coverage: 93.96%
-33 passed, 170 warnings in 3.99s
+TOTAL                          485     16     88      9    96%
+Required test coverage of 90% reached. Total coverage: 95.64%
+46 passed in 5.54s

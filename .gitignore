@@ -55,8 +55,3 @@ docs/evidence/.tmp/
 
 # Intermediate diagram output (architecture.png is the deliverable)
 docs/diagrams/*.svg
-
-# Repo extras outside the assessment scope
-docs/evidence/.gitkeep
-.github/CODEOWNERS
-.github/pull_request_template.md

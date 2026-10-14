@@ -1,10 +1,10 @@
-# 2026-10-14T12:00:07Z
-# terraform -chdir=infra test
+# 2026-10-14T12:22:52Z
+# terraform -chdir=infra test -no-color
 
-tests/pipeline.tftest.hcl... [37min progress[0m
-[0m  run "pipeline_security_defaults"... [32mpass[0m[0m
-  run "reject_invalid_environment"... [32mpass[0m[0m
-tests/pipeline.tftest.hcl... [37mtearing down[0m
-[0mtests/pipeline.tftest.hcl... [32mpass[0m[0m
+tests/pipeline.tftest.hcl... in progress
+  run "pipeline_security_defaults"... pass
+  run "reject_invalid_environment"... pass
+tests/pipeline.tftest.hcl... tearing down
+tests/pipeline.tftest.hcl... pass
 
-[32mSuccess![0m[0m 2 passed, 0 failed.
+Success! 2 passed, 0 failed.

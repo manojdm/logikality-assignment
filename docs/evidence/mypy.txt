@@ -1,4 +1,5 @@
-# 2026-10-14T11:59:52Z
-# /Users/manojdm/Desktop/logikality/app/.venv/bin/python -m mypy --strict app/src
+# 2026-10-14T12:22:24Z
+# bash -c cd app && "./app/.venv/bin/python" -m mypy --strict src && "./app/.venv/bin/python" -m mypy tests --disable-error-code=typeddict-item --disable-error-code=return-value --disable-error-code=arg-type --disable-error-code=unused-ignore
 
-Success: no issues found in 9 source files
+Success: no issues found in 8 source files
+Success: no issues found in 5 source files
