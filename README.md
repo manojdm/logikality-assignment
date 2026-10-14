@@ -124,6 +124,8 @@ Collected by `make evidence` → [`docs/evidence/`](docs/evidence/).
 | actionlint | [`docs/evidence/actionlint.txt`](docs/evidence/actionlint.txt) |
 | backlog simulation | [`docs/evidence/backlog-simulation.txt`](docs/evidence/backlog-simulation.txt) |
 | terraform plan (optional, needs `vaidra`) | [`docs/evidence/tf-plan.txt`](docs/evidence/tf-plan.txt) — generated only when `AWS_PROFILE` is set |
+| gitleaks | [`docs/evidence/gitleaks.txt`](docs/evidence/gitleaks.txt) |
+| secret grep | [`docs/evidence/secret-grep.txt`](docs/evidence/secret-grep.txt) |
 
 ## Design decisions (short)
 
