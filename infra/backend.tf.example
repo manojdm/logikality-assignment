@@ -1,0 +1,17 @@
+# Copy to backend.tf and fill in the bucket/key once a remote-state
+# account exists. Left as an example so `terraform init -backend=false`
+# works without AWS credentials.
+#
+# Use a dedicated state account. Enable bucket versioning, SSE-KMS,
+# Block Public Access, and restrict the bucket policy to the CI role.
+# `use_lockfile` (Terraform >= 1.10) replaces DynamoDB locking.
+#
+# terraform {
+#   backend "s3" {
+#     bucket       = "logikality-tfstate-<account>"
+#     key          = "docproc/dev/terraform.tfstate"
+#     region       = "us-east-1"
+#     encrypt      = true
+#     use_lockfile = true
+#   }
+# }
