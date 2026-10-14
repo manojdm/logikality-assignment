@@ -1,0 +1,55 @@
+# 2026-10-14T12:00:28Z
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 393B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.60kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 1.0s
+
+#4 [builder 1/4] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.10kB done
+#5 DONE 0.0s
+
+#6 [runtime 2/5] RUN groupadd --gid 10001 app     && useradd --uid 10001 --gid 10001 --create-home --home-dir /app app
+#6 CACHED
+
+#7 [builder 2/4] WORKDIR /build
+#7 CACHED
+
+#8 [builder 3/4] COPY app/requirements.txt .
+#8 CACHED
+
+#9 [builder 4/4] RUN python -m venv /opt/venv     && /opt/venv/bin/pip install --upgrade pip     && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [runtime 3/5] COPY --from=builder /opt/venv /opt/venv
+#10 CACHED
+
+#11 [runtime 4/5] COPY app/src /app/src
+#11 DONE 0.0s
+
+#12 [runtime 5/5] WORKDIR /app
+#12 DONE 0.0s
+
+#13 exporting to image
+#13 exporting layers 0.0s done
+#13 writing image sha256:9bf3eabc127c5ba8f6f9029c8159b3d854a6f1b004f2a3b3d60fa07726a8ebfe done
+#13 naming to docker.io/library/logikality-docproc:local done
+#13 naming to docker.io/library/logikality-docproc:dev done
+#13 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/x2k01cwiir2q4ltzljmhnl92y
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+REPOSITORY           TAG       IMAGE ID       CREATED                  SIZE
+logikality-docproc   local     9bf3eabc127c   Less than a second ago   218MB

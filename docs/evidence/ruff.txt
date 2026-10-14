@@ -1,0 +1,4 @@
+# 2026-10-14T11:59:52Z
+# /Users/manojdm/Desktop/logikality/app/.venv/bin/python -m ruff check app
+
+All checks passed!
