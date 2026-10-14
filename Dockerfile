@@ -1,6 +1,6 @@
 # python:3.12-slim should be digest-pinned in production.
 # Dependabot (docker ecosystem at /) is configured to bump this tag.
-FROM python:3.12-slim AS builder
+FROM python:3.14-slim AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -13,7 +13,7 @@ RUN python -m venv /opt/venv \
     && /opt/venv/bin/pip install --upgrade pip \
     && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
 
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
 
 # OCI labels populated at build time. revision is the git SHA.
 ARG GIT_SHA=dev
