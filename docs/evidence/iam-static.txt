@@ -1,0 +1,5 @@
+# 2026-10-14T12:00:28Z
+# bash -c grep -n 's3:\*' infra/modules/document-pipeline/iam.tf && exit 1 || echo 'no s3:* in worker/api IAM'; grep -n 'Resource = "\*"' infra/modules/document-pipeline/iam.tf && exit 1 || echo 'no Resource * in IAM statements (KMS policy data uses * on kms key as required)'
+
+no s3:* in worker/api IAM
+no Resource * in IAM statements (KMS policy data uses * on kms key as required)

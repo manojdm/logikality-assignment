@@ -1,0 +1,78 @@
+name: deploy
+
+# Reference implementation. Disabled until vars.DEPLOY_ENABLED is set to 'true'
+# and GitHub environments (staging, production) exist with required reviewers.
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Immutable image tag to promote (sha-<7> or digest)
+        required: true
+      environment:
+        description: GitHub environment to deploy
+        required: true
+        default: staging
+        type: choice
+        options: [staging, production]
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment || 'staging' }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_ENABLED == 'true' && (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'staging' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+      - uses: aws-actions/amazon-ecr-login@v2
+        id: ecr
+      - name: Record previous task definition
+        id: previous
+        run: |
+          PREV="$(aws ecs describe-services \
+            --cluster "${{ vars.ECS_CLUSTER }}" \
+            --services "${{ vars.ECS_SERVICE }}" \
+            --query 'services[0].taskDefinition' --output text)"
+          echo "arn=${PREV}" >> "$GITHUB_OUTPUT"
+      - name: Render task definition
+        id: render
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ vars.ECS_TASK_DEFINITION_PATH || 'infra/task-definition.json' }}
+          container-name: api
+          image: ${{ steps.ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ github.event.inputs.image_tag || format('sha-{0}', github.sha) }}
+      - name: Deploy
+        id: deploy
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.render.outputs.task-definition }}
+          service: ${{ vars.ECS_SERVICE }}
+          cluster: ${{ vars.ECS_CLUSTER }}
+          wait-for-service-stability: true
+      - name: Post-deploy smoke
+        run: |
+          URL="${{ vars.APP_BASE_URL }}/ready"
+          curl -fsS --retry 10 --retry-delay 5 "$URL"
+      - name: Rollback previous task definition
+        if: failure()
+        run: |
+          aws ecs update-service \
+            --cluster "${{ vars.ECS_CLUSTER }}" \
+            --service "${{ vars.ECS_SERVICE }}" \
+            --task-definition "${{ steps.previous.outputs.arn }}" \
+            --force-new-deployment
+          echo "Rolled back to ${{ steps.previous.outputs.arn }}"
