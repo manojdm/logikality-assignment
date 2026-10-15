@@ -4,7 +4,6 @@ resource "aws_sqs_queue" "dlq" {
   message_retention_seconds         = 1209600
   kms_master_key_id                 = aws_kms_key.pipeline.arn
   kms_data_key_reuse_period_seconds = 300
-  sqs_managed_sse_enabled           = false
 }
 
 resource "aws_sqs_queue" "processing" {
@@ -15,7 +14,6 @@ resource "aws_sqs_queue" "processing" {
   message_retention_seconds         = 345600
   kms_master_key_id                 = aws_kms_key.pipeline.arn
   kms_data_key_reuse_period_seconds = 300
-  sqs_managed_sse_enabled           = false
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.dlq.arn

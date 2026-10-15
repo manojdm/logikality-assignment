@@ -17,7 +17,7 @@ import threading
 import time
 from typing import Any
 
-from botocore.exceptions import ClientError
+from botocore.exceptions import BotoCoreError, ClientError
 
 from docproc import aws
 from docproc.config import Settings, get_settings
@@ -183,13 +183,18 @@ class Worker:
         client = aws.sqs_client(self.settings)
         logger.info("worker_start", extra=log_extra(queue=self.settings.queue_url))
         while not self.stop.is_set():
-            response = client.receive_message(
-                QueueUrl=self.settings.queue_url,
-                MaxNumberOfMessages=MAX_MESSAGES,
-                WaitTimeSeconds=LONG_POLL_SECONDS,
-                AttributeNames=["All"],
-                MessageAttributeNames=["All"],
-            )
+            try:
+                response = client.receive_message(
+                    QueueUrl=self.settings.queue_url,
+                    MaxNumberOfMessages=MAX_MESSAGES,
+                    WaitTimeSeconds=LONG_POLL_SECONDS,
+                    AttributeNames=["All"],
+                    MessageAttributeNames=["All"],
+                )
+            except (BotoCoreError, ClientError) as exc:
+                logger.warning("receive_failed", extra=log_extra(error=str(exc)))
+                self.stop.wait(1)
+                continue
             messages = response.get("Messages", [])
             for message in messages:
                 if self.stop.is_set():

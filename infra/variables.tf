@@ -108,6 +108,18 @@ variable "log_retention_days" {
   default     = 365
 }
 
+variable "enable_compute" {
+  description = "Provision a demo VPC, ALB, ECR and ECS Fargate API + worker. Off by default."
+  type        = bool
+  default     = false
+}
+
+variable "container_image" {
+  description = "Full image URI for ECS tasks. Empty creates ECR/ALB/cluster only."
+  type        = string
+  default     = ""
+}
+
 variable "enable_github_oidc" {
   description = "Create the GitHub Actions OIDC provider, deploy role and ECR repository."
   type        = bool

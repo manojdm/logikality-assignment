@@ -16,6 +16,26 @@ module "document_pipeline" {
   log_retention_days         = var.log_retention_days
 }
 
+module "compute" {
+  count  = var.enable_compute ? 1 : 0
+  source = "./modules/compute"
+
+  project_name          = var.project_name
+  environment           = var.environment
+  aws_region            = var.aws_region
+  container_image       = var.container_image
+  api_task_role_arn     = module.document_pipeline.api_role_arn
+  worker_task_role_arn  = module.document_pipeline.worker_role_arn
+  document_bucket       = module.document_pipeline.document_bucket_name
+  queue_url             = module.document_pipeline.processing_queue_url
+  idempotency_table     = module.document_pipeline.idempotency_table_name
+  kms_key_arn           = module.document_pipeline.kms_key_arn
+  api_log_group_name    = module.document_pipeline.api_log_group_name
+  worker_log_group_name = module.document_pipeline.worker_log_group_name
+  cluster_name          = var.ecs_cluster_name
+  service_name          = var.ecs_service_name
+}
+
 module "github_oidc" {
   count  = var.enable_github_oidc ? 1 : 0
   source = "./modules/github-oidc"

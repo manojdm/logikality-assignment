@@ -42,3 +42,13 @@ output "github_deploy_role_arn" {
   value       = try(module.github_oidc[0].deploy_role_arn, null)
   description = "Present only when enable_github_oidc is true."
 }
+
+output "api_url" {
+  value       = try(module.compute[0].api_url, null)
+  description = "Public HTTP URL for the API. Present only when enable_compute is true."
+}
+
+output "ecr_repository_url" {
+  value       = try(module.compute[0].ecr_repository_url, null)
+  description = "Present only when enable_compute is true."
+}

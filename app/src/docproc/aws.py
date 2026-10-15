@@ -26,6 +26,13 @@ _RETRY_CONFIG = Config(
     read_timeout=5,
 )
 
+# Long-poll ReceiveMessage waits up to 20s; the socket timeout must exceed that.
+_SQS_CONFIG = Config(
+    retries={"max_attempts": 3, "mode": "standard"},
+    connect_timeout=3,
+    read_timeout=30,
+)
+
 _PROBE_CONFIG = Config(
     retries={"max_attempts": 1, "mode": "standard"},
     connect_timeout=1,
@@ -50,7 +57,7 @@ def s3_client(settings: Settings) -> S3Client:
 
 @lru_cache(maxsize=8)
 def sqs_client(settings: Settings) -> SQSClient:
-    return boto3.client("sqs", **_client_kwargs(settings))
+    return boto3.client("sqs", **_client_kwargs(settings, _SQS_CONFIG))
 
 
 @lru_cache(maxsize=8)
